@@ -1,0 +1,83 @@
+{% extends 'core.html' %}
+
+{% block title %}Añadir asignatura{% endblock title %}
+
+
+{% block content %}
+<form method="POST" class="text-white p-5 m-5">
+    {% csrf_token %}
+    <div class="card container color-dark  w-75 p-5">
+        <div class="col texto-dark">
+            
+            <label for="exampleInputPassword1" class="texto-pequeño">Ingrese el nombre de la
+                Asignatura <span class="text-danger">*</span></label>
+            <input type="text" name="nombre-asignatura" required
+                class="form-control bg-dark texto-pequeño text-white border-dark"
+                placeholder="Nombre de la asignatura">
+            
+            <label class="texto-pequeño">Ingrese el objetivos de la asignatura <span class="text-danger">*</span></label>
+            <input type="text" required class="form-control texto-pequeño bg-dark border-dark text-white"
+                name="objetivo"
+                placeholder="objetivo de la asignatura">
+
+            <label class="texto-pequeño">Aportes teoricos <span class="text-danger">*</span></label>
+            <textarea class="form-control border-dark bg-dark text-white texto-pequeño" required name="aportes-teoricos" id="descripcion"
+                rows="5" placeholder="Ingrese los aportes teoricos"></textarea>
+            
+            
+            <label class="texto-pequeño" >Ingrese los Objetivos especificos <span class="text-danger">*</span></label>
+            <textarea class="form-control bg-dark border-dark text-white texto-pequeño" name="objetivos-especificos"
+                rows="5" required
+                placeholder="objetivos especificos"></textarea>
+            
+            <label class="texto-pequeño">Ingrese una breve descripcion del producto
+                academico <span class="text-danger">*</span></label>
+            <textarea class="form-control bg-dark text-white border-dark texto-pequeño" required id="descripcion" name="descripcion-producto-academico" rows="2"
+                placeholder="producto academico"></textarea>
+         
+            <label for="descripcion" class="texto-pequeño">Ingrese el prerequisitos
+                academico </label>
+            
+            <input type="text" class="form-control bg-dark text-white border-dark texto-pequeño"
+             name="prerequisitos" rows="2"
+                placeholder="Prerequisitos"></input>
+            
+            <label for="descripcion" class="texto-pequeño">Seleccione el Periodo<span class="text-danger">*</span></label>
+            <select required class="custom-select texto-pequeño bg-dark texto-dark border-dark form-control w-100"
+                id="exampleSelectBorder" name="opciones">
+                    <option class="text-white">Seleccione el Periodo</option>
+                    <option class="text-white">Primero</option>
+                    <option class="text-white">Segundo</option>
+                    <option class="text-white">Tercero</option>
+                    <option class="text-white">Cuarto</option>
+                    <option class="text-white">Quinto</option>    
+            </select>
+                    
+        </div>
+        <br>    
+        <li class="texto-dark"><label class="lead texto-pequeño">Campos adicionales</label></li>
+        <div class="row m-1 p-1  texto-dark">       
+            <label class="texto-pequeño">Ingrese el metodo de enseñanza <span class="text-danger">*</span></label>
+            <textarea class="form-control bg-dark border-dark text-white texto-pequeño" id="descripcion" name="metodos-ensenanza" rows="2"
+                placeholder="Metodos de enseñanza" required></textarea>
+
+            <label class="texto-pequeño">Ingrese los medios <span class="text-danger">*</span></label>
+            <textarea class="form-control bg-dark text-white texto-pequeño border-dark" name="amb-medios" id="descripcion" rows="2"
+                placeholder="medios" required></textarea>
+                
+            <label class="texto-pequeño">Ingrese la evaluaciones <span class="text-danger">*</span></label>
+            <textarea class="form-control bg-dark text-white texto-pequeño border-dark" name="amb-evaluacion" id="descripcion" rows="2"
+                placeholder="evaluacion" required></textarea>
+            
+        </div>
+
+        <br>
+        <div class="col">
+            <input class="w-100 btn btn-dark texto-dark" type="submit" value="Registrar Asignatura">
+        </div>
+        
+    </div>
+    
+</form>
+
+{% endblock content %}

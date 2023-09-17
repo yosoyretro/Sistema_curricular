@@ -1,0 +1,118 @@
+{% extends 'core.html' %}
+
+
+{% block title %}Unidades{% endblock title %}
+
+{% block content %}
+
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="container-fluid px-4">
+
+        <!--MENSAJE DEL SERVIDOR-->
+        {% if msg %}
+        <div class="alert alert-success m-5" role="alert">
+            <i class="fa fa-check-circle"></i> ¡Producto academico registrado exitosamente!.
+        </div>
+        {% elif msg == False %}
+        <div class="alert alert-danger m-5" role="alert">
+            <i class="fa fa-times-circle"></i> Lo sentimos tuvimos un problema , contacte con el administrado.
+        </div>
+        {% endif %}
+
+        
+        <div class="card mb-4 m-5 bg-light texto-dark">
+        <div class="card-header">
+            <div class="col-auto">
+                <i class="fas fa-table me-1"></i>
+                Preparar Unidad
+                <span>
+                    <p class="m-3 lead texto-pequeño">Añade las Unidades</p>
+                </span>    
+            </div>
+            <di class="container">
+                <button type="button" class="btn btn-dark" data-bs-target="#productoAcademico" data-bs-toggle="modal">Añadir Unidad</button>    
+            </di>
+        </div>
+            
+        <div class="card-body">
+            <table class="table texto-dark text-center table-bordered table-white justify-content-end">
+            <thead>
+                
+                <tr>
+                    <th>Numero</th>
+                    <th>Nombre</th>
+                    <th>Objetivo</th>
+                    <th>Asignatura</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                
+                {% if asignatura %}
+                    {% for un in unidad %}
+                        <tr class="texto-pequeño">
+                        <th>{{un.numero}}</th>
+                        <th>{{un.nombre}}</th>
+                        <th>{{un.objetivo}}</th>
+                        <th>{{un.id_asignatura.nombre}}</th>
+                    {% endfor %}
+                {% else %}
+                    <th colspan="10">
+                        <p class="text-danger text-center">TABLA SIN DATOS</p>
+                    </th>
+                    
+                {% endif %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <!--MODALS-->
+
+
+        <div class="modal fade" id="productoAcademico" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-light texto-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Añadir items en la tabla</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="form-label">Ingrese el numero de la unidad</label>
+                            <input type="number" name="numero" class="form-control"> 
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Ingrese el nombre de esta unidad</label>
+                            <input type="text" class="form-control texto-pequeño" rows="2" name="nombre"></input>    
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Ingrese el objetivos de esta unidad</label>
+                            <textarea class="form-control texto-pequeño" rows="2" name="objetivo"></textarea>    
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Seleccione la asignatura</label>
+                            <select class="form-control" name="asignatura">
+                                {% for oj in asignatura %}
+                                    <option value={{ oj.id }}>{{ oj.nombre }}</option>
+                                {% endfor %}
+                            </select>    
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button name="adjuntar" type="submit" class="btn btn-dark w-100">Adjuntar Asignatura</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endblock content %}
+</form>

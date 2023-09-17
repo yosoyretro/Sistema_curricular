@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>SPC  | {% block title %} Inicio {% endblock %}</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/estilo2.css' %}" rel="stylesheet" />
+</head>
+</body>
+
+<body class="bg-dark-extension-v1 sb-nav-fixed ">
+  <nav class="sb-topnav navbar navbar-expand " style="background-color:#1F1E1E">
+    <a class="navbar-brand ps-3 text-white" href="{% url 'home' %}"> <img style="height:25px" src="{% static 'img/portapapeles.png' %}"> Plantilla curricular</a>
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+        class="fas fa-bars"></i></button>
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+    
+    </form>
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-white" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <i class="fas fa-user fa-fw "></i>|Bienvenido</a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="#!">Ajustes</a></li>
+          <li><a class="dropdown-item" href="#">Registro de actividades</a></li>
+          <li>
+            <hr class="dropdown-divider" />
+          </li>
+          <li><a class="dropdown-item">Salir</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="layoutSidenav" class="color-dark">
+    <div id="layoutSidenav_nav">
+      <nav class="sb-sidenav accordion " id="sidenavAccordion">
+        <div style="background:#1F1E1E" class="sb-sidenav-menu">
+          <div class="nav">
+            <div class="sb-sidenav-menu-heading texto-dark">Módulos</div>
+            <a class="nav-link texto-dark" href="{% url 'productoAcademico' %}">
+              <div class="sb-nav-link-icon"> <img style="height:25px" src="{% static 'img/productoAcademico.png' %}"> </div>
+              Añadir producto academico
+            </a>
+
+              <a class="nav-link texto-dark" href="{% url 'asignatura' %}" >
+                <div class="sb-nav-link-icon"> 
+                  <img style="height:25px" src="{% static 'img/libros.png' %}" class="text-white">
+
+                </div>
+                Añadir asignaturas
+              </a>
+              
+              <a class="nav-link texto-dark" href="{% url 'referencias' %}" >
+                <div class="sb-nav-link-icon"> 
+                  <img style="height:25px" src="{% static 'img/libros.png' %}" class="text-white">
+                </div>
+                Añadir Referencias
+              </a>
+              
+
+              <a class="nav-link texto-dark" href="{% url 'subirplantilla' %}" >
+                <div class="sb-nav-link-icon"> 
+                  <img style="height:25px" src="{% static 'img/libros.png' %}" class="text-white">
+                </div>
+                Preparar Plantilla
+              </a>
+
+              <a class="nav-link texto-dark" href="{% url 'trabajador' %}">
+                <div class="sb-nav-link-icon"> <img style="height:25px" src="{% static 'img/agregar-usuario.png' %}"> </div>
+                Añadir Trabajador
+              </a>
+
+              <a href="{% url 'firma' %}" class="nav-link texto-dark">
+                <div class="sb-nav-link-icon"><img style="height:25px;text-white" src="{% static 'img/papel.png' %}"> </div>
+                Añadir Responsables
+              </a>
+              
+              <a href="{% url 'unidad'  %}" class="nav-link texto-dark">
+                <div class="sb-nav-link-icon"><img style="height:25px;text-white" src="{% static 'img/papel.png' %}"> </div>
+                Añadir Unidad
+              </a>
+              
+              <a class="nav-link texto-dark" href="{% url 'contenido' %}">
+                <div class="sb-nav-link-icon"><img style="height:25px;text-white" src="{% static 'img/papel.png' %}"> </div>
+                Añadir Contenido
+              </a>
+              
+
+
+          </div>
+        </div>
+    </div>
+    <div id="layoutSidenav_content" style="background:#323339">
+      {% block content %}
+      {% endblock %}
+    </div>
+    
+  </div>
+  
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+    crossorigin="anonymous"></script>
+  <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+  <script src="{% static 'js/interaccion.js' %}"></script>
+</body>
+
+</html>

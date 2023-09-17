@@ -1,0 +1,189 @@
+{% extends 'core.html' %}
+
+
+{% block title %}Visualizar Plantilla {% endblock title %}
+
+{% block content %}
+
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="container-fluid px-4">
+
+        <div class="card mb-4 m-5 bg-light texto-dark">
+        <div class="card-header">
+            <div class="col-auto">
+                <i class="fas fa-table me-1"></i>
+                Prepara la Plantilla
+                <span>
+                    <p class="m-3 lead texto-pequeño">Crear la estructura de la plantilla</p>
+                </span>    
+            </div>
+            <di class="container">
+                <button type="button" class="btn btn-primary " data-bs-target="#productoAcademico" data-bs-toggle="modal"><i class="fas fa-upload "></i>Cargar plantilla</button>    
+            </di>
+            
+        </div>
+            
+        <div class="card-body">
+            <table class="table texto-dark texto-pequeño text-center table-bordered  ">
+                    <th class="text-white bg-primary" colspan="2">Carrera</th>
+                    <th colspan="5">Tecnología Superior en Desarrollo de Software</th>    
+                    <tr>
+                    <th class="text-white bg-primary" colspan="7">Datos Informativos</th>
+                    <tr>
+                    <th class="text-white bg-primary">Asignatura</th>
+                    <th>{{tabla.nombre}}</th>
+                    <th class="text-white bg-primary">Código</th>
+                    <th>D.SOFT-PRO.VIS.N3.016</th>
+                    <th class="text-white bg-primary">Campo de formación</th>
+                    <th>Adaptación e Innovación Tecnológica</th>
+                    <tr>
+                        <th colspan="7" class="text-white bg-primary">APORTES TEÓRICOS, METODOLÓGICOS DE LA ASIGNATURA A LOS PROBLEMAS DE LA PROFESIÓN</th>    
+                        <tr>
+                        <th colspan="7">{{tabla.aportesTeoricos}}</th>
+                    <tr>
+                    <th colspan="7" class="text-white bg-primary">OBJETIVOS DE LA ASIGNATURA</th>
+                    <tr>
+                    <th colspan="7" class="text-start"><b class="text-black">Objetivo General : </b> <br>{{ tabla.objetivos }}</th>
+                    <tr>
+                    <th colspan="7" class="text-start"><b class="text-black">Objetivo Especifico : </b> <br> {{ tabla.objetivosEspecificos }}</th>
+                    <tr>
+                    <th class="text-white bg-primary" colspan="7">UNIDADES TEMÁTICAS</th>
+                    <tr>
+                    {% for uni in prueba %}
+                        <th class="text-white bg-primary" colspan="7">UNIDADES # {{ uni.0.id_unidad.numero }} {{ uni.0.id_unidad.nombre }}</th>
+                        <tr>  
+                        <th class="text-start bg-light" colspan="7">OBJETIVO : {{ uni.0.id_unidad.objetivo }} </th>    
+                        <tr>
+                        <th colspan="2" class="text-white bg-primary">Contenido</th>
+                        <th colspan="1" class="text-white bg-primary">Horas Docencia</th>
+                        <th colspan="1" class="text-white bg-primary">Minutos Practicas<br> docencias</th>
+                        <th colspan="1" class="text-white bg-primary">Horas gestion practica</th>
+                        <th colspan="1" class="text-white bg-primary">Horas Autonomas</th>
+                        <tr>
+                        {% for conte in uni %}
+                            <th colspan="2" class="text-start">{{ uni.0.id_unidad.numero }}.{{ conte.numero }}.{{ conte.contenido }}</th>
+                            <th colspan="1">{{ conte.horas_docencia }}</th>
+                            <th colspan="1">{{ conte.minutos_practica }}</th>
+                            <th colspan="1">{{ conte.horas_gestion }}</th>
+                            <th colspan="1">{{ conte.horas_autonomas }}</th>
+                            
+                            <tr>
+                        <tr>
+                        {% endfor %}
+                    {% endfor %}
+                    <tr>
+                    <th colspan="7" class="bg-primary text-white">producto Academico</th>
+                    <tr>
+                    <th colspan="2" class="bg-primary text-white">Objetivo</th>
+                    <th colspan="1" class="bg-primary text-white">Producto Parciales</th>
+                    <th colspan="1" class="bg-primary text-white">RESULTADOS Y ESTÁNDARES DE PRESENTACIÓN</th>
+                    <th colspan="2" class="bg-primary text-white">INTEGRACIÓN CON OTRAS ASIGNATURAS</th>
+                    <tr>
+                    {% for i in productoAcademico %}
+                        <th colspan="2">{{ i.objetivo }}</th>
+                        <th colspan="1">{{ i.producto_parcial }}</th>
+                        <th colspan="1">{{ i.resultado_estandares }}</th>
+                        <th colspan="2">{{ i.integracion_carreras }}</th>
+                        <tr>
+                    {% endfor %}
+                    <th colspan="7" class="bg-primary text-white">Referencia</th>
+                    <tr>
+                    <th colspan="1"  class="bg-primary text-white">Tipo</th>
+                    <th colspan="1"  class="bg-primary text-white">numero</th>
+                    <th colspan="2"  class="bg-primary text-white">TÍTULO DE LA OBRA (Autor, año, nombre de la obra, fuente) (aplicar normas APA7)</th>
+                    <th colspan="1"  class="bg-primary text-white">Existencia en Biblioteca (definir física o digital)</th>
+                    <th colspan="1"  class="bg-primary text-white">Numeros de ejemplares</th>
+                    <tr>
+                    {% for ref in referencia %}
+                        {% if ref.tipo == "BASICA" %}
+                            <th colspan="1" class="bg-primary text-white">{{ref.tipo}}</th>
+                            <th colspan="1">{{ref.numero}}</th>
+                            <th colspan="2">{{ref.descripcion}}</th>
+                            {% if ref.Biblioteca %}
+                                <th colspan="1">SI EXISTE EN LA BIBLIOTECA</th>
+                            {% else %}
+                                <th colspan="1">NO EXISTE EN LA BIBLIOTECA</th>
+                            {% endif %}    
+                            <th>{{ ref.numerosEjemplares }}</th>
+                        {% endif %}
+                        <tr>
+                    {% endfor %}
+
+                    {% for ref in referencia %}
+                        {% if ref.tipo == "COMPLEMENTARIA" %}
+                            <th colspan="1" class="bg-primary text-white">{{ref.tipo}}</th>
+                            <th colspan="1">{{ref.numero}}</th>
+                            <th colspan="2">{{ref.descripcion}}</th>
+                            {% if ref.Biblioteca %}
+                                <th colspan="1">SI EXISTE EN LA BIBLIOTECA</th>
+                            {% else %}
+                                <th colspan="1">NO EXISTE EN LA BIBLIOTECA</th>
+                            {% endif %}    
+                            <th>{{ ref.numerosEjemplares }}</th>
+                        {% endif %}
+                        <tr>
+                    {% endfor %}
+
+                    {% for ref in referencia %}
+                        {% if ref.tipo == "SITIOS WEB" %}
+                            <th class="bg-primary text-white">{{ref.tipo}}</th>
+                            <th>{{ref.numero}}</th>
+                            <th colspan="5" class=""><a href="{{ref.descripcion}}">{{ref.descripcion}}</a></th>
+                            
+                        {% endif %}
+                        <tr>
+                    {% endfor %}
+                    <tr>
+                    <th class="text-white bg-primary" colspan="7">Firmas de responsabilidad</th>
+                    <tr>
+                    <th colspan="3" class="text-white bg-primary">Responsabilidad</th>
+                    <th colspan="2" class="text-white bg-primary">Nombre del responsable</th>
+                    <th colspan="1" class="text-white bg-primary">Firma</th>
+                    <tr>
+                    {% for res in responsable %}
+                        <th colspan="3">{{ res.id_trabajador.perfil }}</th>
+                        <th colspan="2">{{ res.id_trabajador.nombres }} {{ res.id_trabajador.apellidos }}</th>
+                        <th></th>
+                    {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+
+    <!--MODALS-->
+
+
+        <div class="modal fade" id="productoAcademico" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-light texto-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Añadir items en la tabla</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">Seleccione la asignatura</label>
+                                
+                                <select class="form-control" name="asignatura">
+                                    <option value="" disabled selected hidden>Seleccione la asignatura</option>
+
+                                    {% for oj in asignatura %}
+                                        <option value={{ oj.id }}>{{ oj.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button name="adjuntar" type="submit" class="btn btn-dark w-100">Adjuntar Asignatura</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endblock content %}
+</form>

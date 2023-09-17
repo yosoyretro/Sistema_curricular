@@ -1,0 +1,44 @@
+{% extends 'core.html' %}
+{% block title %}Añadir trabajador{% endblock title %}
+
+{% block content %}
+<main>
+    <form method="POST" class="text-white p-5 m-5">
+        {% csrf_token %}
+        <div class="card container color-dark  w-75 p-5">
+            <div class="col texto-dark">
+                <label >Ingrese sus cedula de cedula <span class="text-danger">*</span></label>
+                <input type="input" name="cedula" class="form-control bg-dark border-dark text-white border-dark" >                
+            </div>
+
+            <div class="row texto-dark">
+                <div class="col-6 p-3">
+                    <label>Ingrese sus Nombres <span class="text-danger">*</span></label>
+                    <input name="nombres" class="form-control bg-dark text-white border-dark">
+                </div>
+
+                <div class="col-6 p-3">
+                    <label >Ingrese sus Apellidos <span class="text-danger">*</span></label>
+                    <input name="apellidos" class="form-control bg-dark text-white border-dark">
+                </div>
+            </div>
+
+            <div class="col texto-dark">
+                <label >Seleccione el perfil del usuario <span class="text-danger">*</span></label>
+                <select name="perfil" class="form-control bg-dark text-white border-dark text-center">                
+                    <option>...</option>
+                    <option>Jefe de area</option>
+                    <option>Cordinador</option>
+                    <option>Docente</option>
+                </select>
+            </div>
+            <br>
+            <div class="col">
+                <input type="submit" class="btn btn-dark texto-dark w-100" value="Crear Trabajador"></input>                        
+            </div>
+            
+        </div>
+        
+    </form>
+</main>
+{% endblock content %}

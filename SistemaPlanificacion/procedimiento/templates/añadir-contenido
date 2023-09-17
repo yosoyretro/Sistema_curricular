@@ -1,0 +1,146 @@
+{% extends 'core.html' %}
+
+
+{% block title %}Subir Plantilla {% endblock title %}
+
+{% block content %}
+
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="container-fluid px-4">
+
+        <!--MENSAJE DEL SERVIDOR-->
+        {% if msg %}
+        <div class="alert alert-success m-5" role="alert">
+            <i class="fa fa-check-circle"></i> ¡Producto academico registrado exitosamente!.
+        </div>
+        {% elif msg == False %}
+        <div class="alert alert-danger m-5" role="alert">
+            <i class="fa fa-times-circle"></i> Lo sentimos tuvimos un problema , contacte con el administrado.
+        </div>
+        {% endif %}
+
+        
+        <div class="card mb-4 m-5 bg-light texto-dark">
+        <div class="card-header">
+            <div class="col-auto">
+                <i class="fas fa-table me-1"></i>
+                Lista de contenidos
+                <span>
+                    <p class="m-3 lead texto-pequeño">Crea los contenidos para la carrera</p>
+                </span>    
+            </div>
+            <di class="container">
+                <button type="button" class="btn btn-dark" data-bs-target="#productoAcademico" data-bs-toggle="modal">Crear Contenido</button>    
+            </di>
+            
+        </div>
+            
+        <div class="card-body">
+            <table class="table texto-dark text-center table-bordered table-white justify-content-end">
+            <thead>
+                
+                <tr>
+                    <th>Numero</th>
+                    <th>Contenido</th>
+                    <th>Horas docencia</th>
+                    <th>Minutos de practicas de docencia</th>
+                    <th>Horas de gestion Practica</th>
+                    <th>Horas Autonomas</th>
+                    <th>Asignatura</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                
+                {% if contenido %}
+                    {% for con in contenido %}
+                        <tr class="texto-pequeño">
+                        <th>{{ con.numero }}</th>
+                        <th>{{ con.contenido }}</th>
+                        <th>{{ con.horas_docencia }}</th>
+                        <th>{{ con.minutos_practica }}</th>
+                        <th>{{ con.horas_gestion }}</th>
+                        <th>{{ con.horas_autonomas }}</th>
+                        <th>{{ con.id_unidad.id_asignatura.nombre  }}</th>
+                    {% endfor %}
+                    
+                {% else %}
+                    <th colspan="10">
+                        <p class="text-danger text-center">TABLA SIN DATOS</p>
+                    </th>
+                    
+                {% endif %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <!--MODALS-->
+
+
+        <div class="modal fade" id="productoAcademico" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-light texto-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Crear contenidos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="form-group">
+                                <label class="form-label">Ingrese el numero</label>
+                                <input type="number" class="form-control" name="numero"></input>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Ingrese el contenido</label>
+                                <input type="text" class="form-control"  name="contenido"></input>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Ingrese la horas de docencia</label>
+                                <input type="text" class="form-control" name="horas-docencia"></input>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Ingrese los minutos practicas de docencia</label>
+                                <input type="number" class="form-control" name="minutos-practicas"></input>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Ingrese las horas de gestion</label>
+                                <input type="number" class="form-control" name="horas-gestion"></input>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Ingrese las horas de Autonomas</label>
+                                <input type="number" class="form-control" name="horas-autonomas"></input>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="form-label">Seleccione la unidad </label>
+                                <select class="form-control" name="unidad">
+                                    {% for i in unidad %}
+                                        <option value="{{i.id}}">{{i.numero}} {{i.nombre}}</option>
+                                    {% endfor %}
+                                </select>    
+                            </div>
+
+
+                            
+
+                    </div>
+                    <div class="modal-footer">
+                        <button name="adjuntar" type="submit" class="btn btn-dark w-100">Crear contenido</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endblock content %}
+</form>
